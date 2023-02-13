@@ -5,6 +5,7 @@ Class Amenity, inherits from BaseModel
 
 from models.base_model import BaseModel
 
+
 class Amenity(BaseModel):
     """
     Represents the Amenity class and inherits from BaseModel.
@@ -16,4 +17,3 @@ class Amenity(BaseModel):
     def __init__(self, *args, **kwargs):
         """Initialize the Amenity class with the BaseModel's init method."""
         super().__init__(*args, **kwargs)
-
