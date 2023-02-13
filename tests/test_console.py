@@ -10,6 +10,7 @@ from models.amenity import Amenity
 from models.review import Review
 from hbnb import HBNBCommand
 
+
 class TestHBNBCommand(unittest.TestCase):
 
     def setUp(self):
@@ -62,6 +63,3 @@ class TestHBNBCommand(unittest.TestCase):
         self.hbnb.onecmd("update BaseModel {} name \"Test\"".format(bm.id))
         bm_obj = storage.all()
         self.assertEqual(bm_obj[bm_key].name, "Test")
-
-   
-i
