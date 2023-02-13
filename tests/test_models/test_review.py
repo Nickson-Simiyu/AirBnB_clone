@@ -1,26 +1,40 @@
 #!/usr/bin/python3
-import unittest
+"""
+Test Review Classes
+"""
+from datetime import datetime
 from models.review import Review
+from models.base_model import BaseModel
+import pep8
+import unittest
 
-class TestReview(unittest.TestCase):
+
+class Test_ReviewModel(unittest.TestCase):
+    """
+    Test the review class
+    """
+
     def setUp(self):
-        self.review = Review()
-        self.review.place_id = "123"
-        self.review.user_id = "456"
-        self.review.text = "This is a great place!"
+        self.model = Review()
+        self.model.save()
 
-    def test_attributes(self):
-        self.assertEqual(self.review.place_id, "123")
-        self.assertEqual(self.review.user_id, "456")
-        self.assertEqual(self.review.text, "This is a great place!")
+    def test_pep8_conformance_place(self):
+        """Test that models/place.py conforms to PEP8."""
+        pep8style = pep8.StyleGuide(quiet=True)
+        result = pep8style.check_files(['models/review.py'])
+        self.assertEqual(result.total_errors, 0,
+                         "Found code style errors (and warnings).")
 
-    def test_to_dict(self):
-        review_dict = self.review.to_dict()
-        self.assertEqual(review_dict["place_id"], "123")
-        self.assertEqual(review_dict["user_id"], "456")
-        self.assertEqual(review_dict["text"], "This is a great place!")
-        self.assertEqual(review_dict["__class__"], "Review")
+    def test_to_dict_values(self):
+        """test that values in dict returned from to_dict are correct"""
+        time = "%Y-%m-%dT%H:%M:%S.%f"
+        rev = Review()
+        new_d = rev.to_dict()
+        self.assertEqual(new_d["__class__"], "Review")
+        self.assertEqual(type(new_d["created_at"]), str)
+        self.assertEqual(type(new_d["updated_at"]), str)
+        self.assertEqual(new_d["created_at"], rev.created_at.strftime(time))
+        self.assertEqual(new_d["updated_at"], rev.updated_at.strftime(time))
 
 if __name__ == "__main__":
     unittest.main()
-
